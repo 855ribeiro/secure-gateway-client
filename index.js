@@ -3,10 +3,10 @@ const io = require('socket.io-client');
 const axios = require('axios');
 const {v4: uuidv4} = require('uuid');
 
-const {AUTH_TOKEN} = process.env;
+const {AUTH_TOKEN, SERVER_URL} = process.env;
 const client_id = uuidv4();
 
-const socket = io('ws://localhost:3000', {
+const socket = io(SERVER_URL, {
     reconnectionDelayMax: 10000,
     auth: {
         token: AUTH_TOKEN
