@@ -7,6 +7,8 @@ This is a proof of concept project in which the main idea is to enable server co
 - `connect_error`: Event is triggered when there was an issue when trying to establish communication with the Server
 - `execute`: Event is triggered when the Server requests for data at [Chuck Norris API (random)](https://api.chucknorris.io/) and the value is returned with a callback
 
+Make sure you have configured the [Server Application](https://github.com/855ribeiro/secure-gateway-server)
+
 To connect into the Socket Server you need to specify the correct authentication token (`AUTH_TOKEN`), which you need to inform into a `.env` file. Any wrong credentials, your client won't establish communication.
 
 With this proof of concept, I'm indicating that your client (resided in On-Premise infrastructure) could establish communication into a Cloud Application and the server can make requests through the On-Premise Application.
