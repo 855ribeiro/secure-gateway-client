@@ -13,6 +13,23 @@ To connect into the Socket Server you need to specify the correct authentication
 
 With this proof of concept, I'm indicating that your client (resided in On-Premise infrastructure) could establish communication into a Cloud Application and the server can make requests through the On-Premise Application.
 
+**Ways to verify the connection:**
+
+You can test that your machine can reach the Socket Server by running the following command:
+
+```
+curl "https://poc-mts-secure-gateway.mybluemix.net/socket.io/?EIO=4&transport=polling"
+```
+
+which should return something like this: 
+
+```
+0{"sid":"IujxBsVbSjzaj6lYAABI","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":20000}
+```
+
+If that's not the case, please check that the Socket.IO server is running, and that there is nothing in between that prevents the connection.
+
+
 ## How to start the Client
 
 1. Clone this repository
