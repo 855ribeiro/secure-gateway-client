@@ -13,8 +13,10 @@ const client_id = uuidv4();
 * Setting up socket connection to the server
 */
 const socket = io(SERVER_URL, {
+    transports: ['websocket'],
+    upgrade: false,
     rejectUnauthorized: false, // WARN: please do not use this in production
-    reconnectionDelayMax: 10000,
+    reconnectionDelayMax: 5000,
     auth: {
         token: AUTH_TOKEN
     },
@@ -35,7 +37,10 @@ socket.on('connect', () => {
 * Event is trigger when a disconnection to the server happen
 */
 
-socket.on('disconnect', () => {
+socket.on('disconnect', (reason) => {
+    if(reason === 'io server disconnect') {
+        socket.connect();
+    }
     console.log('connection closed, reconnecting...')
 })
 
@@ -45,7 +50,7 @@ socket.on('disconnect', () => {
 */
 socket.on('connect_error', (error) => {
     console.error(`\nIssue connecting to the Server (${SERVER_URL})`);
-    console.error(`Error description: ${error.description} - ${error.message}\n\n`);
+    console.error(`Error description: ${JSON.stringify(error.description)} - ${error.message}\n\n`);
 })
 
 
@@ -53,7 +58,7 @@ socket.on('connect_error', (error) => {
 * Event is trigger when there're actions to be executed
 */
 socket.on('execute', async (data, callback) => {
-    console.log('Received action from Server');
+    console.log('Received action from Server', new Date());
     const response = await axios.get('https://api.chucknorris.io/jokes/random');
     callback(response.data);
 })
